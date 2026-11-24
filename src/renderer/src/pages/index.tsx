@@ -136,6 +136,9 @@ export function Component() {
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
+                        <span className="inline-flex h-5 shrink-0 cursor-default items-center justify-center rounded bg-neutral-100 px-1 text-xs tabular-nums text-neutral-500 dark:bg-neutral-800 dark:text-neutral-400">
+                          {formatDuration(item.duration)}
+                        </span>
                         <div className="grow select-text">
                           {item.transcript}
                         </div>
@@ -230,4 +233,14 @@ const DeleteButton = ({ id }: { id: string }) => {
       <span className="i-mingcute-delete-2-fill"></span>
     </button>
   )
+}
+
+const formatDuration = (ms: number) => {
+  const seconds = Math.floor(ms / 1000)
+  const minutes = Math.floor(seconds / 60)
+  const secs = seconds % 60
+  if (minutes > 0) {
+    return `${minutes}:${secs.toString().padStart(2, "0")}`
+  }
+  return `${secs}s`
 }
