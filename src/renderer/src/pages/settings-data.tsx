@@ -10,7 +10,22 @@ export function Component() {
   })
 
   return (
-    <div>
+    <div className="grid gap-4">
+      <ControlGroup>
+        <Control label="Data Folder" className="px-3">
+          <Button
+            variant="outline"
+            className="h-7 gap-1 px-2 py-0"
+            onClick={() => {
+              tipcClient.openDataFolder()
+            }}
+          >
+            <span className="i-mingcute-folder-open-line"></span>
+            <span>Open</span>
+          </Button>
+        </Control>
+      </ControlGroup>
+
       <ControlGroup>
         <Control label="History Recordings" className="px-3">
           <Button
