@@ -10,7 +10,7 @@ import {
   dialog,
 } from "electron"
 import path from "path"
-import { configStore, recordingsFolder } from "./config"
+import { configStore, dataFolder, recordingsFolder } from "./config"
 import { Config, RecordingHistoryItem } from "../shared/types"
 import { RendererHandlers } from "./renderer-handlers"
 import { postProcessTranscript } from "./llm"
@@ -42,6 +42,11 @@ const saveRecordingsHitory = (history: RecordingHistoryItem[]) => {
 }
 
 export const router = {
+  openDataFolder: t.procedure.action(async () => {
+    fs.mkdirSync(dataFolder, { recursive: true })
+    await shell.openPath(dataFolder)
+  }),
+
   restartApp: t.procedure.action(async () => {
     app.relaunch()
     app.quit()
