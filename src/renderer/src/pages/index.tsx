@@ -144,7 +144,7 @@ export function Component() {
                         </div>
                         <div className="flex shrink-0 gap-2 text-sm">
                           <PlayButton id={item.id} />
-
+                          <CopyButton transcript={item.transcript} />
                           <DeleteButton id={item.id} />
                         </div>
                       </div>
@@ -231,6 +231,30 @@ const DeleteButton = ({ id }: { id: string }) => {
       }}
     >
       <span className="i-mingcute-delete-2-fill"></span>
+    </button>
+  )
+}
+
+const CopyButton = ({ transcript }: { transcript: string }) => {
+  const [copied, setCopied] = useState(false)
+
+  return (
+    <button
+      type="button"
+      className={itemButtonVariants()}
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(transcript)
+          setCopied(true)
+          setTimeout(() => setCopied(false), 1500)
+        } catch {
+          // clipboard write may fail in restricted contexts
+        }
+      }}
+    >
+      <span
+        className={copied ? "i-mingcute-check-fill" : "i-mingcute-clipboard-line"}
+      ></span>
     </button>
   )
 }
