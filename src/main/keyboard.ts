@@ -132,13 +132,17 @@ export function listenToKeyboardEvents() {
             return
           }
 
+          const defaultHoldDuration = 800
+          const holdDuration =
+            configStore.get().holdDuration || defaultHoldDuration
+
           startRecordingTimer = setTimeout(() => {
             isHoldingCtrlKey = true
 
             console.log("start recording")
 
             showPanelWindowAndStartRecording()
-          }, 800)
+          }, holdDuration)
         } else {
           keysPressed.set(e.data.key, e.time.secs_since_epoch)
           cancelRecordingTimer()

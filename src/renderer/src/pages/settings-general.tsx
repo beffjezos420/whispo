@@ -1,4 +1,5 @@
 import { Control, ControlGroup } from "@renderer/components/ui/control"
+import { Input } from "@renderer/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -115,6 +116,25 @@ export function Component() {
             </SelectContent>
           </Select>
         </Control>
+
+        {shortcut === "hold-ctrl" && (
+          <Control label="Hold Duration (ms)" className="px-3">
+            <Input
+              type="number"
+              min={200}
+              max={5000}
+              step={100}
+              defaultValue={configQuery.data.holdDuration ?? 800}
+              className="w-24 text-center"
+              onChange={(e) => {
+                const val = parseInt(e.currentTarget.value, 10)
+                if (val >= 200 && val <= 5000) {
+                  saveConfig({ holdDuration: val })
+                }
+              }}
+            />
+          </Control>
+        )}
       </ControlGroup>
 
       <ControlGroup title="Speech to Text">
